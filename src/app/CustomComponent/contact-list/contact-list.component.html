@@ -1,0 +1,66 @@
+<!-- VIEW FOR THE SHOWING CONTACT LISTS.
+  WE ALSO ABLE TO ACTIVATE AND DEACTIVATE CONTACT FROM ACTION SECTION AGAINST EACH ROW.
+ACTION AVAILABLE ON THIS SCREEN
+1. ACTIVATE / REJECT CONTACT - WHICH WILL CHANGE STATUS OF A CONTACT FROM ACTIVE TO INACTIVE AND VISE VERSA.
+
+ADD NEW RECORD BUTTON WILL REDIRECT US TO ADD-CONTACT COMPONENT.
+-->
+
+
+
+<div id="divContactList" class="col-md-12">
+  <div class="pgHeader">
+    <div class="row col-md-7"><h3>Contact List</h3></div>
+    <div class="col-md-3 pull-right text-right row" style="margin-top: 20px;">
+        <button class="btn btn-sm btn-primary" id="btnaddNew" (click)="addNewContact()">
+          <i class="fa fa-plus-circle"></i> Add New Record</button>
+        <div class="clearfix"></div>
+      </div>
+      <div class="clearfix"></div>
+  </div>
+  <div class="clearfix"></div>
+  <div [ngClass]="{'alert':(isSuccess==true || isSuccess==false )  , 'alert-success' : (isSuccess== true), 'alert-danger' : (isSuccess==false)}">
+    {{alertMsg}}
+    <div class="clearfix"></div>
+  </div>
+  <div class="clearfix"></div>
+  <table class="table table-condensed table-responsive table-bordered table-striped table-hover">
+    <thead>
+      <tr>
+        <th class="col-md-1 text-center">Sr No</th>
+        <th class="col-md-3">Name</th>
+        <th class="col-md-2">Email Address</th>
+        <th class="col-md-2">Phone</th>
+        <th class="col-md-1">Status</th>
+        <th class="col-md-3"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of contacts; let i = index" [ngClass]="{'danger': item.status=='IN_ACT'}">
+        <td class="text-center">{{ i + 1 }}</td>
+        <td>{{item.firstName}} {{item.lastName}}</td>
+        <td>{{item.email}}</td>
+        <td class="col-md-2">{{item.phone}}</td>
+        <td>
+          <span *ngIf="item.status=='ACT'" class="text-success">Active</span>
+          <span *ngIf="item.status=='IN_ACT'" class="text-danger">In-Active</span>
+        </td>
+        <td  class="text-center">
+          <span *ngIf="item.status=='ACT'">
+            <button class="btn btn-xs btn-default" routerLink="/update/{{item.id}}">
+              <i class="fa fa-pencil"></i> Edit</button>
+            <button class="btn btn-xs btn-danger" (click)="deactivateContact(i)">
+              <i class="fa fa-times-circle"></i> Deactivate</button>
+          </span>
+          <span *ngIf="item.status=='IN_ACT'">
+            <button class="btn btn-xs btn-default" routerLink="/update/{{item.id}}">
+              <i class="fa fa-pencil"></i> Edit</button>
+            <button class="btn btn-xs btn-success"(click)="activateContact(i)">
+              <i class="fa fa-check-circle"></i> Activate</button>
+          </span>
+
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

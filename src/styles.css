@@ -1,0 +1,10 @@
+/* You can add global styles to this file, and also import other style files */
+@import "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css";
+@import "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css";
+
+
+
+/* Custom css which we going to use throughout app comes here.. */
+.btn {border-radius:0px;}
+.alert { padding: 10px; border-radius: 0px;}
+.errorMsg {font-size: 12px; color:#ba1f25;}

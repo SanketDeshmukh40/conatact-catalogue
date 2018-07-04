@@ -1,0 +1,58 @@
+<!-- VIEW FOR THE UPDATE EXISTING CONTACT DETAILS WHICH CONTAINS FIRSTNAME,LASTNAME,EMAILADDRESS, CONTACTNUMBER FIELDS
+FOR VALIDATIONS WE HAVE USED PATTERNS TO CHECK AND SATISFY THE CONDITIONS
+ALL THE VALUES ARE COMMUNICATING WITH COMPONENT CLASS WITH [(ngModel)]. WHICH WILL UPDATE / CHANGE VALUE TO FIELD IN COMPOENT CLASS.
+
+ACTION AVAILABLE ON THIS SCREEN
+1. UPDATE CONTACT - WHICH UPDATES SELECTED RECORDS TO THE CONTACT LIST.
+2. CLEAR FORM -CLEARS AND RESET FORM  
+-->
+
+
+<div id="divEditContact" class="col-md-6 col-md-offset-3 row">
+    <div class="panel panel-success">
+        <div class="panel-heading text-center"><h3><a routerLink="/list" class="backBtn"> <i class="fa fa-chevron-circle-left pull-left"></i></a> <span>Update Contact</span></h3>
+      <div class="clearfix"></div>
+      </div>
+      <div class="panel-body">
+          <div [ngClass]="{'alert':(isSuccess==true || isSuccess==false )  , 'alert-success' : (isSuccess== true), 'alert-danger' : (isSuccess==false)}">
+              {{alertMsg}}
+          </div>
+        <div class="col-md-12 form-group">
+          <label for="txtFirstName">First Name</label>
+          <input id="txtFName" name="txtFName" type="text"  pattern="^[A-z]+$" required #fName="ngModel" class="input input-sm form-control" [(ngModel)]="firstName" placeholder="First Name" />
+          <div *ngIf="fName.invalid && (fName.dirty || fName.touched)" class="errorMsg"> 
+              <div *ngIf="fName.errors.required"> Please enter first name. </div>
+             <div *ngIf="fName.errors && fName.errors.pattern"> First name is invalid. </div>
+          </div>
+        </div>
+        <div class="col-md-12  form-group">
+          <label for="txtLastName">Last Name</label>
+          <input  id="txtLName" name="txtLName"  type="text"  pattern="^[A-z]+$" required #lName="ngModel"  class="input input-sm form-control" [(ngModel)]="lastName" placeholder="Last Name" />
+          <div *ngIf="lName.invalid && (lName.dirty || lName.touched)" class="errorMsg"> 
+              <div *ngIf="lName.errors.required"> Please enter last name. </div>
+             <div *ngIf="lName.errors && lName.errors.pattern"> Last name is invalid. </div>
+          </div>
+        </div>
+        <div class="col-md-12 form-group">
+          <label for="txtEmail">Email Address</label>
+          <input  id="txtEmail" name="txtEmail" class="input input-sm form-control"  pattern="[a-zA-Z0-9.-]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}" type="text" required #emailAddres="ngModel" [(ngModel)]="emailAddress" placeholder="Email Address" />
+          <div *ngIf="emailAddres.invalid && (emailAddres.dirty || emailAddres.touched)" class="errorMsg"> 
+              <div *ngIf="emailAddres.errors.required"> Please enter email address. </div>
+             <div *ngIf="emailAddres.errors && emailAddres.errors.pattern"> Invalid Email address. </div>
+          </div>
+        </div>
+        <div class="col-md-12 form-group">
+          <label for="txtPhone">Phone Number</label>
+          <input  id="txtPhone"  type="text"  pattern="^(\+\d{1,3}[- ]?)?\d{10}$" required #phNo="ngModel" name="txtPhone" maxlength="10" class="input input-sm form-control" [(ngModel)]="phoneNo" placeholder="Phone Number" />
+          <div *ngIf="phNo.invalid && (phNo.dirty || phNo.touched)" class="errorMsg"> 
+              <div *ngIf="phNo.errors.required"> Please enter valid phone number. </div>
+             <div *ngIf="phNo.errors && phNo.errors.pattern"> Invalid phone number. </div>
+          </div>
+        </div>
+      </div>
+      <div class="panel-footer text-center">
+        <button class="btn btn-sm btn-success" id="btnSaveContact" [disabled]="emailAddres.errors || lName.errors || fName.errors || phNo.errors" (click)="updateContact()"><i class="fa fa-floppy-o"></i> Update</button>
+        <button class="btn btn-sm btn-default" id="btnClearContact" (click)="clearForm()"><i class="fa fa-times-circle"></i> Clear</button>
+      </div>
+    </div>
+  </div>
